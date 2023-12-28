@@ -70,3 +70,21 @@ def test(request, id=0):
     test = Test.objects.get(id=id)
     questions = Question.objects.filter(test=test)
     return render(request, 'test.html', context={'test': test, 'questions': questions})
+
+
+def add_question(request, id=0):
+    if id == 0 or not Test.objects.filter(id=id).exists():
+        return HttpResponseRedirect('/')
+    test = Test.objects.get(id=id)
+    if test.creator.id != request.user.id:
+        return HttpResponseRedirect('/')
+    if request.method == 'GET':
+        return render(request, 'add_question.html')
+    if request.method == 'POST':
+        question = Question(
+            text=request.POST.get('text'),
+            answer=request.POST.get('answer'),
+            test=test
+        )
+        question.save()
+        return HttpResponseRedirect(f'/test/{id}')

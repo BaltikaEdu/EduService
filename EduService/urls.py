@@ -26,6 +26,7 @@ urlpatterns = [
     path('login/', LoginUser.as_view()),
     path('logout/', logout_user),
     path('create_test/', create_test),
-    path('test/<int:id>', test)
+    path('test/<int:id>/', test),
+    path('test/<int:id>/add_question/', add_question)
 ]
 

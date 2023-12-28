@@ -1,0 +1,6 @@
+<form method="POST" action="/test/1/add_question/">
+    {% csrf_token %}
+    <input type="text" name="text">
+    <input type="text" name="answer">
+    <input type="submit" value="Сохранить">
+</form>
